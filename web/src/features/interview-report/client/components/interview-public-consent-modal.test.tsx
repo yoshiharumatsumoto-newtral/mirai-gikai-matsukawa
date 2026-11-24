@@ -3,6 +3,7 @@ import "@testing-library/jest-dom/vitest";
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { describe, expect, it, vi } from "vitest";
+import { OPEN_DATA_ENABLED } from "@/config/local-site";
 import { InterviewPublicConsentModal } from "./interview-public-consent-modal";
 
 function renderModal(overrides: { isSubmitting?: boolean } = {}) {
@@ -19,18 +20,34 @@ function renderModal(overrides: { isSubmitting?: boolean } = {}) {
 }
 
 describe("InterviewPublicConsentModal", () => {
-  it("オープンデータ提供の告知とデータ利用規約リンクを表示する", () => {
-    renderModal();
+  it.skipIf(OPEN_DATA_ENABLED)(
+    "オープンデータを提供していない間は告知を出さない",
+    () => {
+      renderModal();
 
-    expect(
-      screen.getByText(/第三者にオープンデータとして提供されることがあります/)
-    ).toBeInTheDocument();
-    expect(
-      screen.getByRole("link", {
-        name: "みらい議会AIインタビューデータ利用規約",
-      })
-    ).toBeInTheDocument();
-  });
+      expect(
+        screen.queryByText(
+          /第三者にオープンデータとして提供されることがあります/
+        )
+      ).not.toBeInTheDocument();
+    }
+  );
+
+  it.runIf(OPEN_DATA_ENABLED)(
+    "オープンデータ提供の告知とデータ利用規約リンクを表示する",
+    () => {
+      renderModal();
+
+      expect(
+        screen.getByText(/第三者にオープンデータとして提供されることがあります/)
+      ).toBeInTheDocument();
+      expect(
+        screen.getByRole("link", {
+          name: "みらい議会AIインタビューデータ利用規約",
+        })
+      ).toBeInTheDocument();
+    }
+  );
 
   it("公開許可で onSubmit(true)、非公開で onSubmit(false) を呼ぶ", async () => {
     const user = userEvent.setup();

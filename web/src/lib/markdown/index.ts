@@ -7,6 +7,7 @@ import remarkBreaks from "remark-breaks";
 import remarkParse from "remark-parse";
 import remarkRehype from "remark-rehype";
 import { unified } from "unified";
+import { SHOW_NATIONAL_DIET_FEATURES } from "@/config/local-site";
 import { LongPressSection } from "@/features/bills/client/components/bill-detail/long-press-section";
 import { DifficultyInfoCard } from "@/features/bills/server/components/bill-detail/difficulty-info-card";
 import { rehypeEmbedYouTube } from "./rehype-embed-youtube";
@@ -46,16 +47,19 @@ export async function parseMarkdown(markdown: string): Promise<ReactElement> {
     .use(remarkRehype)
     .use(rehypeWrapSections)
     .use(rehypeInjectElement, {
-      injections: [
-        {
-          targetH2Index: 3,
-          tagName: "LongPressSection",
-        },
-        {
-          targetH2Index: -1,
-          tagName: "DifficultyInfoCard",
-        },
-      ],
+      // 長押しでAIに質問する案内と説明の詳しさの切り替えは、法案解説用。町村版では差し込まない
+      injections: SHOW_NATIONAL_DIET_FEATURES
+        ? [
+            {
+              targetH2Index: 3,
+              tagName: "LongPressSection",
+            },
+            {
+              targetH2Index: -1,
+              tagName: "DifficultyInfoCard",
+            },
+          ]
+        : [],
     })
     .use(rehypeSanitize, sanitizeSchema)
     .use(rehypeExternalLinks)

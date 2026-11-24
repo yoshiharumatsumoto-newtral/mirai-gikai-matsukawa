@@ -3,6 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import type { ReactNode } from "react";
+import { OPEN_DATA_ENABLED } from "@/config/local-site";
 import { routes } from "@/lib/routes";
 
 export function ConsentCheckListItem({ children }: { children: ReactNode }) {
@@ -25,6 +26,8 @@ export function ConsentCheckListItem({ children }: { children: ReactNode }) {
  * 含まれることを知らせる告知。公開同意を求めるモーダルで共通利用する。
  */
 export function OpenDataNoticeItem() {
+  if (!OPEN_DATA_ENABLED) return null;
+
   return (
     <ConsentCheckListItem>
       公開を許可した内容は、「

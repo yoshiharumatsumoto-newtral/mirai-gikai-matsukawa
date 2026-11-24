@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { notFound } from "next/navigation";
 import { Container } from "@/components/layouts/container";
 import {
   LegalList,
@@ -6,6 +7,7 @@ import {
   LegalParagraph,
   LegalSectionTitle,
 } from "@/components/layouts/legal-page-layout";
+import { OPEN_DATA_ENABLED } from "@/config/local-site";
 
 export const metadata: Metadata = {
   title: "みらい議会AIインタビューデータ利用規約 | みらい議会",
@@ -16,6 +18,7 @@ export const metadata: Metadata = {
 const CC_BY_LICENSE_URL = "https://creativecommons.org/licenses/by/4.0/deed.ja";
 
 export default function InterviewDataTermsPage() {
+  if (!OPEN_DATA_ENABLED) notFound();
   return (
     <LegalPageLayout
       title="みらい議会AIインタビューデータ利用規約"

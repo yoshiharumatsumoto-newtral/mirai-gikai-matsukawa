@@ -8,6 +8,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
+import { COUNCIL_NAME } from "@/config/local-site";
 import {
   ConsentCheckListItem,
   OpenDataNoticeItem,
@@ -39,14 +40,15 @@ export function MakePublicModal({
 
         <div className="space-y-4 mt-6">
           <ConsentCheckListItem>
-            公開を許可した場合、今後みらい議会にあなたのご意見の要約とインタビュー原文が匿名で掲載されることがあります。
+            公開を許可した場合、このサイトにご意見の要約とインタビュー原文が匿名で掲載されることがあります。
           </ConsentCheckListItem>
           <OpenDataNoticeItem />
           <ConsentCheckListItem>
-            さまざまな意見が公開されることで、より深い法案議論が実現できます。
+            さまざまな声が見えるようになることで、地域の課題についての話し合いが深まります。
           </ConsentCheckListItem>
           <p className="text-sm text-black">
-            非公開で提出した場合でも、ご意見は党内での政策検討に活用させていただきます。
+            非公開で提出した場合でも、ご意見は匿名で集計・要約し、{COUNCIL_NAME}
+            の活動や政策検討に活用させていただきます。
           </p>
         </div>
 

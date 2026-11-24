@@ -1,4 +1,5 @@
 import { Container } from "@/components/layouts/container";
+import { SHOW_NATIONAL_DIET_FEATURES } from "@/config/local-site";
 import type { DifficultyLevelEnum } from "@/features/bill-difficulty/shared/types";
 import { InterviewLandingSection } from "@/features/interview-config/client/components/interview-landing-section";
 import { getInterviewConfig } from "@/features/interview-config/server/loaders/get-interview-config";
@@ -50,14 +51,16 @@ export async function BillDetailLayout({
           topicCount={topicAnalysis?.topics.length ?? 0}
         />
         <Container>
-          {/* 議案ステータス進捗 */}
-          <div className="my-8">
-            <BillStatusProgress
-              status={bill.status}
-              originatingHouse={bill.originating_house}
-              statusNote={bill.status_note}
-            />
-          </div>
+          {/* 議案ステータス進捗（国会の審議状況なので町村版では出さない） */}
+          {SHOW_NATIONAL_DIET_FEATURES && (
+            <div className="my-8">
+              <BillStatusProgress
+                status={bill.status}
+                originatingHouse={bill.originating_house}
+                statusNote={bill.status_note}
+              />
+            </div>
+          )}
 
           <BillContent bill={bill} />
         </Container>
@@ -82,7 +85,7 @@ export async function BillDetailLayout({
           賛否が未設定・非公開（公開日時前を含む）なら出さない。法案提出前でも、
           賛否を登録していない段階で「法案提出前」のカードだけを出すことはしない。
         */}
-        {bill.mirai_stance && (
+        {SHOW_NATIONAL_DIET_FEATURES && bill.mirai_stance && (
           <div className="my-8">
             <MiraiStanceCard
               stance={bill.mirai_stance}

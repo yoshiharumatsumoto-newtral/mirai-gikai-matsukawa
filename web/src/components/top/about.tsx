@@ -1,6 +1,11 @@
 import Image from "next/image";
-import { EXTERNAL_LINKS } from "@/config/external-links";
-import { LinkButton } from "./link-button";
+import {
+  COUNCIL_KIND,
+  COUNCIL_NAME,
+  MUNICIPALITY,
+  OPERATOR_NAME,
+  SITE_NAME,
+} from "@/config/local-site";
 
 export function About() {
   return (
@@ -18,35 +23,28 @@ export function About() {
             />
           </h2>
           <p className="text-sm font-bold text-primary-accent">
-            みらい議会とは
+            {SITE_NAME}とは
           </p>
         </div>
 
         {/* コンテンツ */}
-        <div className="flex flex-col gap-6">
-          <div className="flex flex-col gap-3">
-            <h3 className="text-2xl font-bold leading-[43.2px]">
-              国会での議論を
-              <br />
-              できる限りわかりやすく
-            </h3>
-            <p className="text-[15px] leading-[28px] text-black">
-              みらい議会は、国会で今どんな法案が検討されているか、わかりやすく伝えるプラットフォームです。国民の意見を政治に届けることを目指して、継続的にアップデートしていきます。
-            </p>
-          </div>
-
-          {/* もっと詳しく知るボタン */}
-          <LinkButton
-            href={EXTERNAL_LINKS.ABOUT_NOTE}
-            icon={{
-              src: "/icons/note-icon.png",
-              alt: "note",
-              width: 25,
-              height: 25,
-            }}
-          >
-            みらい議会とは
-          </LinkButton>
+        <div className="flex flex-col gap-3">
+          <h3 className="text-2xl font-bold leading-[43.2px]">
+            {COUNCIL_KIND}と、
+            <br />
+            {MUNICIPALITY.kind}に暮らす人の声をつなぐ
+          </h3>
+          <p className="text-[15px] leading-[28px] text-black">
+            {SITE_NAME}
+            は、{MUNICIPALITY.name}
+            の地域の課題について、{MUNICIPALITY.kind}
+            に暮らす人・関わる人の声をAIインタビューでお聞きし、{COUNCIL_NAME}
+            での活動や提言につなげるための場です。
+          </p>
+          <p className="text-[15px] leading-[28px] text-black">
+            いただいた声は{OPERATOR_NAME}
+            が匿名で集計・要約します。公開を許可いただいた声は、このサイトで誰でも見られるようにしていきます。
+          </p>
         </div>
       </div>
     </div>

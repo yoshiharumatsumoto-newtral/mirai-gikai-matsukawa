@@ -1,3 +1,4 @@
+import { OPEN_DATA_ENABLED } from "@/config/local-site";
 import { getOpenDataOpenInterviews } from "@/features/open-data/server/services/get-open-data-open-interviews";
 import { checkRateLimit } from "@/features/open-data/server/utils/rate-limit-guard";
 import { parseDifficultyQuery } from "@/features/open-data/shared/utils/parse-bills-query";
@@ -13,6 +14,9 @@ import { jsonNoStore } from "@/lib/api/response";
  * - APIキーは発行せず、オープンデータAPI全体でレートリミットを設ける
  */
 export async function GET(request: Request) {
+  if (!OPEN_DATA_ENABLED) {
+    return new Response(null, { status: 404 });
+  }
   const url = new URL(request.url);
 
   const query = parseDifficultyQuery(url.searchParams);

@@ -2,6 +2,7 @@
 
 import type { ReactNode } from "react";
 import { useRef } from "react";
+import { SHOW_NATIONAL_DIET_FEATURES } from "@/config/local-site";
 import type { DifficultyLevelEnum } from "@/features/bill-difficulty/shared/types";
 import { TextSelectionWrapper } from "@/features/bills/client/components/text-selection-tooltip/text-selection-wrapper";
 import {
@@ -39,17 +40,24 @@ export function BillDetailClient({
 
   return (
     <>
-      <TextSelectionWrapper onOpenChat={handleOpenChat}>
-        {children}
-      </TextSelectionWrapper>
+      {/* 文章を選んでAIに質問する機能もチャットとセットなので、町村版では包まない */}
+      {SHOW_NATIONAL_DIET_FEATURES ? (
+        <TextSelectionWrapper onOpenChat={handleOpenChat}>
+          {children}
+        </TextSelectionWrapper>
+      ) : (
+        children
+      )}
 
-      {/* チャット機能 */}
-      <ChatButton
-        ref={chatButtonRef}
-        billContext={bill}
-        hasInterviewConfig={hasInterviewConfig}
-        difficultyLevel={currentDifficulty}
-      />
+      {/* チャット機能（法案解説用のAIチャットなので町村版では出さない） */}
+      {SHOW_NATIONAL_DIET_FEATURES && (
+        <ChatButton
+          ref={chatButtonRef}
+          billContext={bill}
+          hasInterviewConfig={hasInterviewConfig}
+          difficultyLevel={currentDifficulty}
+        />
+      )}
     </>
   );
 }

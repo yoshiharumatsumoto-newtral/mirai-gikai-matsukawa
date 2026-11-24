@@ -1,3 +1,4 @@
+import { OPEN_DATA_ENABLED } from "@/config/local-site";
 import { getOpenDataInterviews } from "@/features/open-data/server/services/get-open-data-interviews";
 import { checkRateLimit } from "@/features/open-data/server/utils/rate-limit-guard";
 import { parsePaginationQuery } from "@/features/open-data/shared/utils/parse-pagination-query";
@@ -17,6 +18,9 @@ const LICENSE = "CC BY 4.0";
  * - APIキーは発行せず、API全体でレートリミットを設ける
  */
 export async function GET(request: Request) {
+  if (!OPEN_DATA_ENABLED) {
+    return new Response(null, { status: 404 });
+  }
   const url = new URL(request.url);
   const termsUrl = new URL(routes.interviewDataTerms(), url.origin).toString();
 

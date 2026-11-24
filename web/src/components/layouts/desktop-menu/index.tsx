@@ -1,3 +1,4 @@
+import { SHOW_NATIONAL_DIET_FEATURES } from "@/config/local-site";
 import { DesktopMenuDifficultyToggle } from "./difficulty-toggle";
 import { DesktopMenuLogo } from "./logo";
 import { DesktopMenuRubyToggle } from "./ruby-toggle";
@@ -16,7 +17,7 @@ export async function DesktopMenu() {
   return (
     <div className="hidden pcl:block">
       <DesktopMenuLogo />
-      <DesktopMenuDifficultyToggle />
+      {SHOW_NATIONAL_DIET_FEATURES && <DesktopMenuDifficultyToggle />}
       <DesktopMenuRubyToggle />
       <DesktopMenuSidebar />
     </div>

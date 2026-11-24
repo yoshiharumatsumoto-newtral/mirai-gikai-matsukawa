@@ -4,6 +4,7 @@ import type { Route } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { COUNCIL_NAME } from "@/config/local-site";
 import { getBillById } from "@/features/bills/server/loaders/get-bill-by-id";
 import { getBillDetailLink } from "@/features/interview-config/shared/utils/interview-links";
 import { PublicStatusSection } from "@/features/interview-report/client/components/public-status-section";
@@ -16,6 +17,9 @@ import { isExpertRegistrationTargetRole } from "../../shared/utils/expert-regist
 import { parseOpinions } from "../../shared/utils/format-utils";
 import { countCharacters } from "../../shared/utils/report-utils";
 import { getExpertRegistrationStatus } from "../loaders/get-expert-registration-status";
+
+/** 有識者リスト登録（氏名・連絡先の収集）を出すか。小さな村では個人が特定されやすいので出さない */
+const SHOW_EXPERT_REGISTRATION = false;
 
 interface ReportCompletePageProps {
   reportId: string;
@@ -76,7 +80,7 @@ export async function ReportCompletePage({
 
           {/* 活用メッセージ */}
           <p className="text-sm text-gray-800">
-            いただいた声は政策検討に最大限活用します
+            いただいた声は、{COUNCIL_NAME}での活動に活かします
           </p>
         </div>
       </div>
@@ -116,10 +120,10 @@ export async function ReportCompletePage({
             roleDescription={report.role_description}
             opinions={opinions}
           >
-            {/* 有識者リスト登録バナー */}
-            {isExpertRole && !isExpertRegistered && (
-              <ExpertRegistrationSection />
-            )}
+            {/* 有識者リスト登録バナー（松川村版では氏名・連絡先を集めないため非表示） */}
+            {SHOW_EXPERT_REGISTRATION &&
+              isExpertRole &&
+              !isExpertRegistered && <ExpertRegistrationSection />}
           </ReportContent>
         </div>
       </div>

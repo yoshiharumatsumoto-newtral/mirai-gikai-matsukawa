@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { RubySafeLineClamp } from "@/components/ruby-safe-line-clamp";
 import { Card, CardHeader, CardTitle } from "@/components/ui/card";
+import { SHOW_NATIONAL_DIET_FEATURES } from "@/config/local-site";
 import { formatDateWithDots } from "@/lib/utils/date";
 import type { BillWithContent } from "../../../shared/types";
 import { getArticleReviewState } from "../../../shared/utils/article-review-state";
@@ -56,14 +57,18 @@ export function BillCard({ bill }: BillCardProps) {
                   </>
                 )}
               </CardTitle>
-              <div className="flex flex-row gap-4">
-                <BillStatusBadge status={bill.status} className="w-fit" />
-                <div className="flex items-center gap-2 text-xs font-medium text-muted-foreground">
-                  {bill.submitted_date && (
-                    <time>{formatDateWithDots(bill.submitted_date)} 提出</time>
-                  )}
+              {SHOW_NATIONAL_DIET_FEATURES && (
+                <div className="flex flex-row gap-4">
+                  <BillStatusBadge status={bill.status} className="w-fit" />
+                  <div className="flex items-center gap-2 text-xs font-medium text-muted-foreground">
+                    {bill.submitted_date && (
+                      <time>
+                        {formatDateWithDots(bill.submitted_date)} 提出
+                      </time>
+                    )}
+                  </div>
                 </div>
-              </div>
+              )}
               <RubySafeLineClamp
                 text={summary}
                 maxLength={132}

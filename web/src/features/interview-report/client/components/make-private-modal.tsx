@@ -10,6 +10,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
+import { COUNCIL_NAME } from "@/config/local-site";
 
 interface MakePrivateModalProps {
   open: boolean;
@@ -55,7 +56,8 @@ export function MakePrivateModal({
             非公開にした場合、あなたのご意見が世の中に公開されることはありません。
           </CheckListItem>
           <CheckListItem>
-            チームみらい党内での政策検討に最大限活用させていただきます。
+            匿名で集計・要約し、{COUNCIL_NAME}
+            の活動や政策検討に活用させていただきます。
           </CheckListItem>
         </div>
 

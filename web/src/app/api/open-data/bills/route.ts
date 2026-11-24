@@ -1,3 +1,4 @@
+import { OPEN_DATA_ENABLED } from "@/config/local-site";
 import { getOpenDataBills } from "@/features/open-data/server/services/get-open-data-bills";
 import { checkRateLimit } from "@/features/open-data/server/utils/rate-limit-guard";
 import { parseBillsQuery } from "@/features/open-data/shared/utils/parse-bills-query";
@@ -13,6 +14,9 @@ import { jsonNoStore } from "@/lib/api/response";
  *   データ利用規約はインタビューデータ専用のため意図的に含めていない）
  */
 export async function GET(request: Request) {
+  if (!OPEN_DATA_ENABLED) {
+    return new Response(null, { status: 404 });
+  }
   const url = new URL(request.url);
 
   const query = parseBillsQuery(url.searchParams);

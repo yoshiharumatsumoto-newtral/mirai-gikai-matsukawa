@@ -10,6 +10,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { Container } from "@/components/layouts/container";
 import { EXTERNAL_LINKS } from "@/config/external-links";
+import { OPEN_DATA_ENABLED } from "@/config/local-site";
 import { routes } from "@/lib/routes";
 
 export const metadata: Metadata = {
@@ -18,7 +19,7 @@ export const metadata: Metadata = {
     "みらい議会のオープンデータAPIなど、開発者・研究者向けの情報をまとめています。",
 };
 
-const links = [
+const allLinks = [
   {
     href: routes.developersOpenDataApi(),
     icon: Database,
@@ -35,7 +36,8 @@ const links = [
     external: false,
   },
   {
-    href: EXTERNAL_LINKS.GITHUB_REPO,
+    // 松川村版のリポジトリを公開するまでは本家を指す
+    href: EXTERNAL_LINKS.GITHUB_REPO || EXTERNAL_LINKS.ORIGINAL_REPO,
     icon: Github,
     title: "GitHubリポジトリ",
     description:
@@ -51,6 +53,15 @@ const links = [
     external: true,
   },
 ];
+
+// オープンデータを提供していない間は、API とデータ利用規約へのリンクを出さない
+const OPEN_DATA_HREFS = new Set<string>([
+  routes.developersOpenDataApi(),
+  routes.interviewDataTerms(),
+]);
+const links = OPEN_DATA_ENABLED
+  ? allLinks
+  : allLinks.filter((link) => !OPEN_DATA_HREFS.has(link.href));
 
 // Team Mirai デザインシステムの news-list パターン:
 // 区切り線（1px #e5e5e5 = neutral-200）で仕切った行 + 右端に teal のシェブロン。

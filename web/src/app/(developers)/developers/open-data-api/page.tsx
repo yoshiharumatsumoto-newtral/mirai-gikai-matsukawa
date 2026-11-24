@@ -1,4 +1,6 @@
 import type { Metadata } from "next";
+import { notFound } from "next/navigation";
+import { OPEN_DATA_ENABLED } from "@/config/local-site";
 import { OpenDataApiReference } from "@/features/open-data/client/components/open-data-api-reference";
 
 export const metadata: Metadata = {
@@ -8,5 +10,6 @@ export const metadata: Metadata = {
 };
 
 export default function OpenDataApiPage() {
+  if (!OPEN_DATA_ENABLED) notFound();
   return <OpenDataApiReference />;
 }

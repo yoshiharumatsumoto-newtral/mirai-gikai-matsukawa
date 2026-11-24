@@ -14,8 +14,8 @@ export async function generateMetadata({
 }: TopicsPageProps): Promise<Metadata> {
   const { id } = await params;
   const bill = await getBillById(id);
-  const billName = bill?.bill_content?.title || bill?.name || "法案";
-  const title = `法案のトピック一覧 - ${billName}`;
+  const billName = bill?.bill_content?.title || bill?.name || "テーマ";
+  const title = `寄せられた声のトピック - ${billName}`;
   const description = `${billName}に寄せられた意見をAIが整理したトピック一覧`;
   const shareImageUrl = resolveBillShareImageUrl(bill, env.webUrl);
 

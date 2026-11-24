@@ -1,3 +1,4 @@
+import { OPEN_DATA_ENABLED } from "@/config/local-site";
 import { getOpenDataBillDetail } from "@/features/open-data/server/services/get-open-data-bill-detail";
 import { checkRateLimit } from "@/features/open-data/server/utils/rate-limit-guard";
 import { parseDifficultyQuery } from "@/features/open-data/shared/utils/parse-bills-query";
@@ -15,6 +16,9 @@ export async function GET(
   request: Request,
   { params }: { params: Promise<{ billId: string }> }
 ) {
+  if (!OPEN_DATA_ENABLED) {
+    return new Response(null, { status: 404 });
+  }
   const { billId } = await params;
   if (!isUuid(billId)) {
     return jsonNoStore({ error: "billId はUUID形式で指定してください" }, 400);

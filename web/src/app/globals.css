@@ -104,20 +104,20 @@
 
   /* Progress */
   --color-mirai-progress-track: #d9d9d9;
-  --color-mirai-progress-fill: #a9e89d;
+  --color-mirai-progress-fill: #f7b77a;
 
   /* Gradient endpoints */
-  --color-mirai-gradient-start: #64d8c6;
-  --color-mirai-gradient-end: #bcecd3;
+  --color-mirai-gradient-start: #f39a4c;
+  --color-mirai-gradient-end: #fdd9a8;
 
   /* Team Mirai brand (party design system) */
-  --color-mirai-brand-teal: #30bca7;
-  --color-mirai-brand-teal-hover: #089781;
-  --color-mirai-brand-teal-deep: #17594f;
-  --color-mirai-brand-mint: #e2f6f3;
+  --color-mirai-brand-teal: #e06a1b;
+  --color-mirai-brand-teal-hover: #b8500f;
+  --color-mirai-brand-teal-deep: #6b2e08;
+  --color-mirai-brand-mint: #fdeee0;
 
   /* Topic analysis */
-  --color-topic-info-bg: #e5f3f0;
+  --color-topic-info-bg: #fbefe4;
   --color-topic-chip-bg: #f1f1f1;
   --color-topic-count: #6b7775;
   --color-topic-label: #909090;
@@ -138,8 +138,8 @@
   --card-foreground: oklch(0.145 0 0);
   --popover: oklch(1 0 0);
   --popover-foreground: oklch(0.145 0 0);
-  --primary: #2aa693;
-  --primary-accent: #0f8472;
+  --primary: #d4601a;
+  --primary-accent: #b8500f;
   --primary-foreground: oklch(0.985 0 0);
   --secondary: oklch(0.97 0 0);
   --secondary-foreground: oklch(0.205 0 0);
@@ -261,7 +261,7 @@
   }
 
   .bg-mirai-light-gradient {
-    background-image: linear-gradient(to bottom, #e2f6f3, #eef6e2);
+    background-image: linear-gradient(to bottom, #fdeee0, #fff6e3);
   }
 
   .bg-mirai-white-fade {

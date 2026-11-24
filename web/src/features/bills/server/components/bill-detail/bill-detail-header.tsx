@@ -3,6 +3,7 @@ import type { Route } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
+import { SHOW_NATIONAL_DIET_FEATURES } from "@/config/local-site";
 import { DEFAULT_DIFFICULTY } from "@/features/bill-difficulty/shared/types";
 import { getInterviewLPLink } from "@/features/interview-config/shared/utils/interview-links";
 import { routes } from "@/lib/routes";
@@ -58,7 +59,7 @@ export async function BillDetailHeader({
         {displayTitle && (
           <h1 className="text-2xl font-bold mb-3">
             {displayTitle}
-            {reviewState === "reviewed" && (
+            {SHOW_NATIONAL_DIET_FEATURES && reviewState === "reviewed" && (
               <>
                 {" "}
                 <ReviewCompleteBadge showTooltip />
@@ -66,14 +67,16 @@ export async function BillDetailHeader({
             )}
           </h1>
         )}
-        <div className="flex flex-row gap-4">
-          <BillStatusBadge status={bill.status} className="w-fit" />
-          <div className="flex items-center gap-2 text-xs font-medium text-muted-foreground">
-            {bill.submitted_date && (
-              <time>{formatDateWithDots(bill.submitted_date)} 提出</time>
-            )}
+        {SHOW_NATIONAL_DIET_FEATURES && (
+          <div className="flex flex-row gap-4">
+            <BillStatusBadge status={bill.status} className="w-fit" />
+            <div className="flex items-center gap-2 text-xs font-medium text-muted-foreground">
+              {bill.submitted_date && (
+                <time>{formatDateWithDots(bill.submitted_date)} 提出</time>
+              )}
+            </div>
           </div>
-        </div>
+        )}
       </div>
 
       <div className="px-4 pb-8">
@@ -90,10 +93,13 @@ export async function BillDetailHeader({
           </div>
         )}
 
-        <p className="text-sm text-muted-foreground font-medium mb-4">
-          {bill.name}
-        </p>
-        {reviewState !== "reviewed" && (
+        {/* 町村版では題名と正式名が同じなので重ねて出さない。有識者レビューの仕組みも使わない */}
+        {SHOW_NATIONAL_DIET_FEATURES && (
+          <p className="text-sm text-muted-foreground font-medium mb-4">
+            {bill.name}
+          </p>
+        )}
+        {SHOW_NATIONAL_DIET_FEATURES && reviewState !== "reviewed" && (
           <div className="mb-4">
             <ReviewStateBanner
               state={reviewState}

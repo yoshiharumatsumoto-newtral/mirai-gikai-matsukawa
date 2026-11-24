@@ -6,6 +6,7 @@ import {
   createMockBill,
   createMockBillContent,
 } from "@/app/dev/_lib/mock-data";
+import { SHOW_NATIONAL_DIET_FEATURES } from "@/config/local-site";
 import { BillCard } from "./bill-card";
 
 describe("BillCard", () => {
@@ -137,7 +138,18 @@ describe("BillCard", () => {
     ).toBeInTheDocument();
   });
 
-  it("提出日を time 要素で出す", () => {
+  it.skipIf(SHOW_NATIONAL_DIET_FEATURES)(
+    "町村版では審議状況の札と提出日を出さない",
+    () => {
+      const { container } = render(
+        <BillCard bill={createMockBill({ submitted_date: "2026-02-03" })} />
+      );
+
+      expect(container.querySelector("time")).toBeNull();
+    }
+  );
+
+  it.runIf(SHOW_NATIONAL_DIET_FEATURES)("提出日を time 要素で出す", () => {
     const { container } = render(
       <BillCard bill={createMockBill({ submitted_date: "2026-02-03" })} />
     );
