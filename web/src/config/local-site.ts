@@ -28,8 +28,8 @@ export const COUNCILOR_KIND = `${MUNICIPALITY.kind}議会議員`;
 /** 「村民」 */
 export const RESIDENTS = `${MUNICIPALITY.kind}民`;
 
-/** 運営者の表示名（団体名を決めたらここを差し替える） */
-export const OPERATOR_NAME = `${MUNICIPALITY.name}議会議員 松本`;
+/** 運営者の表示名（団体名） */
+export const OPERATOR_NAME = "これからの地方議会ラボ";
 
 /** 松川村向けに改変した時期（AGPL-3.0 第5条 (a) の改変の明示） */
 export const MODIFIED_AT = "2026年11月";
@@ -50,8 +50,8 @@ export const OPEN_DATA_ENABLED = false;
 /** 管轄裁判所（利用規約の準拠法・管轄） */
 export const JURISDICTION_COURT = "長野地方裁判所";
 
-/** 個人情報や回答公開の停止などの問い合わせ先。決まったら入れる（空の間は「準備中」と表示） */
-export const CONTACT = "";
+/** 個人情報や回答公開の停止などの問い合わせ先（空の間は「準備中」と表示） */
+export const CONTACT = "yoshiharu_matsumoto@matsumotokousakusyo.com";
 
 /** サービス名（Fork ガイドラインの「みらい議会＠地域名」形式） */
 export const SITE_NAME = `みらい議会＠${MUNICIPALITY.name}`;

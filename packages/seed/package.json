@@ -6,7 +6,8 @@
   "scripts": {
     "seed": "tsx main/run.ts",
     "seed:csv": "tsx csv/import-csv.ts",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "sync:notion": "tsx matsukawa/sync-from-notion.ts"
   },
   "dependencies": {
     "@mirai-gikai/supabase": "workspace:*",

@@ -1,6 +1,9 @@
 import { routes } from "@/lib/routes";
 
-export { MODIFIED_AT, OPERATOR_NAME } from "@/config/local-site";
+export {
+  MODIFIED_AT,
+  OPERATOR_NAME,
+} from "@/config/local-site";
 
 export type FooterLink = {
   label: string;
