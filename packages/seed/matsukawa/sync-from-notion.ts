@@ -215,6 +215,15 @@ function missingFields(theme: SyncTheme): string[] {
 
 const supabase = createAdminClient();
 
+async function billExists(id: string): Promise<boolean> {
+  const { data } = await supabase
+    .from("bills")
+    .select("id")
+    .eq("id", id)
+    .maybeSingle();
+  return data != null;
+}
+
 async function hideTheme(theme: SyncTheme) {
   if (dryRun) return;
   await supabase
@@ -227,10 +236,15 @@ async function hideTheme(theme: SyncTheme) {
     .eq("bill_id", theme.siteId);
 }
 
-async function createTheme(theme: SyncTheme): Promise<string> {
+/**
+ * テーマを新しく登録する。id を渡すとその id で作る（Notion のサイトIDと、
+ * 別のデータベース（試験用と本番用など）の id をそろえるため）。
+ */
+async function createTheme(theme: SyncTheme, id?: string): Promise<string> {
   const { data: bill, error } = await supabase
     .from("bills")
     .insert({
+      ...(id ? { id } : {}),
       name: theme.title,
       originating_house: "HR", // 必須項目のため形式上の値（画面には出さない）
       status: "preparing",
@@ -399,9 +413,13 @@ async function main() {
       continue;
     }
 
-    if (theme.siteId) {
+    if (theme.siteId && (await billExists(theme.siteId))) {
       if (!dryRun) await updateTheme(theme);
       console.log(`✅ 更新: ${label}（質問 ${theme.questions.length}問）`);
+    } else if (theme.siteId) {
+      // 別のデータベース（本番用など）にはまだ無いので、同じ id で作る
+      if (!dryRun) await createTheme(theme, theme.siteId);
+      console.log(`🆕 新規（同じサイトIDで）: ${label}（質問 ${theme.questions.length}問）`);
     } else {
       if (!dryRun) {
         const siteId = await createTheme(theme);
