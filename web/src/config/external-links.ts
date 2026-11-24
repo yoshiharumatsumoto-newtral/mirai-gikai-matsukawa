@@ -12,7 +12,8 @@ export const EXTERNAL_LINKS = {
   FAQ: "https://team-mirai.notion.site/FAQ-28cf6f56bae180bd84e7f7ae80f806a1",
   FORK_GUIDELINES_NOTE: "https://note.com/team_mirai_jp/n/nc59ec347e8c7",
   // この松川村版自身のソースコード公開先（AGPL-3.0 第13条）。公開リポジトリを作ったら URL を入れる
-  GITHUB_REPO: "",
+  GITHUB_REPO:
+    "https://github.com/yoshiharumatsumoto-newtral/mirai-gikai-matsukawa",
   // 元にした本家
   ORIGINAL_SERVICE: "https://gikai.team-mir.ai/",
   ORIGINAL_REPO: "https://github.com/team-mirai/mirai-gikai",
